@@ -1,0 +1,45 @@
+﻿@page "/"
+@using System.Collections.Generic
+
+<h1>Random Hashtags!</h1>
+
+<textarea style="width: 100%" @bind="HashtagSet" ></textarea>
+
+<textarea style="width: 100%" @bind="HashtagSelection" ></textarea>
+
+<button class="btn btn-primary" @onclick="GetRandomHashtags">Get Random Hashtags</button>
+
+@code {
+
+  private int numberToInclude = 30;
+
+  protected string HashtagSet = "#ig_europa #tellus #departedoutdoors #followmefaraway #igshotz #justbackfrom #whatsinmybag #cntravelereats #passportexpress #thattravelblog #lppathfinders  #vacationgoals #takemethere #takemetherenow #seemycity #citybestviews #globalcapture #street_focus_on #travellifestyle #traveladdicted #travelpassport #wandergram #worldnomads #speechlessplaces #travelstoked #thesweatlife #heretocreate #seeababes #motivation💪 #youcandoittoo #getstronger #girlswholiftheavy #nopainnogains #whyirun #trainingdays #fitspirational #StopExercising #StartTraining #laufen #laufenmachtglücklich #laufliebe #justrun #runspiration #instafitfam #instafitsociety #fitnessaddiction #exercisetime #fitgoals #fitfreak #catsofinstgram #bestmeow #meowbox #adoptdontshop #tacotonguetuesday #instakitty #catagram #fluffycat #catworld #catday #dailykitten #bestcatsclub #cutecatclub #happycats #catslove #catsworld #catmodel #katzen #katzenaufinstagram #katzenleben #katzenliebe #weekendmusic #tourlife #bandofinstagram #musiciansofinstagram #musicianlife #musiclovers #newmusicfriday #listennow #playlist #djsofinstagram #acousticmusic #deejays #progressivehouse #technolife #lovetechno #trapmusic #musicislove #musicaddict #mymusic #ilovemuisc #musicflow #setlist #bandsintown";
+  
+  protected string HashtagSelection = "";
+
+  private void GetRandomHashtags()
+  {
+    List<string> allAvailables = new List<string>(this.HashtagSet.Split());
+    
+    List<string> result = new List<string>();
+
+    var rnd = new System.Random();
+
+    for(int i = 0; i < numberToInclude; i++)
+    {
+      var rndNumber = rnd.Next(allAvailables.Count);
+      var rndString = allAvailables[rndNumber];
+
+      result.Add(rndString);
+      allAvailables.RemoveAt(rndNumber);
+
+      if (allAvailables.Count == 0) {
+
+        break;
+      }
+    }
+
+    HashtagSelection = string.Join(' ', result);
+    
+  }
+}
